@@ -4,14 +4,18 @@ console.clear();
 const express = require("express");
 const connectDB = require("./config/connectDB");
 
+// instance app
+const app = express();
+
 // dotenv
 require("dotenv").config();
-
 //conncet with database
 connectDB();
 
-// instance app
-const app = express();
+//use router
+// app.use(express.json());
+app.use("/api/personne", require("./router/personne"));
+
 //port
 const PORT = process.env.PORT;
 

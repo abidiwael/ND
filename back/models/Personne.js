@@ -7,4 +7,5 @@ const personneSchema = new Schema({
 	password: { type: String, required: true },
 });
 
+// default export
 module.exports = Personne = model("personne", personneSchema);
