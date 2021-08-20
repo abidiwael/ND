@@ -1,0 +1,24 @@
+{
+	"name": "back",
+	"version": "1.0.0",
+	"description": "",
+	"main": "server.js",
+	"scripts": {
+		"back": "nodemon server"
+	},
+	"keywords": [
+		"node",
+		"express",
+		"mongoose"
+	],
+	"author": "wael",
+	"license": "ISC",
+	"devDependencies": {
+		"dotenv": "^10.0.0",
+		"nodemon": "^2.0.12"
+	},
+	"dependencies": {
+		"express": "^4.17.1",
+		"mongoose": "^5.13.7"
+	}
+}
