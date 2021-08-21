@@ -14,6 +14,7 @@ connectDB();
 
 //use router
 // app.use(express.json());
+app.use(express.json());
 app.use("/api/personne", require("./router/personne"));
 
 //port

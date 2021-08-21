@@ -1,70 +1,92 @@
-// const Personne = require("../router/personne");
+const Personne = require("../models/Personne");
 
-// exports.addArticle = async (req, res) => {
-// 	try {
-// 		const {
-// 			title,
-// 			text_article,
-// 			poster_id,
-// 			poster_name,
-// 			add_to_fav_id,
-// 			add_to_later_id,
-// 			categorie,
-// 		} = req.body;
-// 		if (!title) {
-// 			return res.status(400).send("Can't add an article without title");
-// 		}
-// 		if (!text_article) {
-// 			return res.status(400).send("Can't add an article without content");
-// 		}
-// 		if (!categorie) {
-// 			return res.status(400).send("Can't add an article without content");
-// 		}
-// 		const newArticle = new Article({ ...req.body });
-// 		await newArticle.save();
-// 		res.status(200).send({ msg: "new article is added", article: newArticle });
-// 	} catch (error) {
-// 		console.log(error);
-// 		res.status(500).send("impossible to add new article");
-// 	}
-// };
-
-exports.getAllPersonneData = (req, res) => {
-	res.send("test controllers");
+exports.getAllPersonneData = async (req, res) => {
+	try {
+		const personnes = await Personne.find();
+		res.status(200).send({ msg: "all person data", personnes });
+	} catch (error) {
+		console.log(error);
+		res.status(500).send("imossible to get person data");
+	}
 };
 
-// exports.editArticle = async (req, res) => {
-// 	try {
-// 		const { Id } = req.params;
-// 		const newArticle = await Article.findOneAndUpdate(
-// 			{ _id: Id },
-// 			{ $set: { ...req.body } }
-// 		);
-// 		res.status(200).send({ msg: "Article edited", newArticle });
-// 	} catch (error) {
-// 		console.log(error);
-// 		res.status(500).send("impossible to edit article");
-// 	}
-// };
+exports.addPersonne = async (req, res) => {
+	try {
+		const {
+			civilite,
+			nom,
+			prenom,
+			date_naissance,
+			situation_familiale,
+			nb_enfants,
+			email,
+			telephone_1,
+			telephone_2,
+			mobile,
+			adress,
+			pays,
+			ville,
+			rue,
+			n_rue,
+			code_postale,
+			complement_adresse,
+			mots_cle,
+			commentaire,
+		} = req.body;
 
-// exports.deleteArticle = async (req, res) => {
-// 	try {
-// 		const { Id } = req.params;
-// 		await Article.findOneAndDelete({ _id: Id });
-// 		res.status(200).send({ msg: "Article deleted" });
-// 	} catch (error) {
-// 		console.log(error);
-// 		res.status(500).send("impossible to delete article");
-// 	}
-// };
+		// tous les champs du formulaire sont obligatoire
+		if (
+			!civilite ||
+			!prenom ||
+			!nom ||
+			!date_naissance ||
+			!situation_familiale ||
+			!nb_enfants ||
+			!email ||
+			!telephone_1 ||
+			!telephone_2 ||
+			!mobile ||
+			!adress ||
+			!pays ||
+			!ville ||
+			!rue ||
+			!n_rue ||
+			!code_postale ||
+			!complement_adresse
+		) {
+			return res.status(400).send("Please check your informations");
+		}
+		// email unique
+		const findPersonneEmail = await Personne.findOne({ email });
+		if (findPersonneEmail) {
+			return res.status(400).send({ errors: [{ msg: "email already used" }] });
+		}
+		// telephone 1 unique
+		const findPersonneTel1 = await Personne.findOne({ telephone_1 });
+		if (findPersonneTel1) {
+			return res
+				.status(400)
+				.send({ errors: [{ msg: "phone number 1 already used" }] });
+		}
+		// telephone 2 unique
+		const findPersonneTel2 = await Personne.findOne({ telephone_2 });
+		if (findPersonneTel2) {
+			return res
+				.status(400)
+				.send({ errors: [{ msg: "phone number 2 already used" }] });
+		}
+		// mobile unique
+		const findPersonneMobile = await Personne.findOne({ mobile });
+		if (findPersonneMobile) {
+			return res.status(400).send({ errors: [{ msg: "mobile already used" }] });
+		}
 
-// exports.getOneArticle = async (req, res) => {
-// 	try {
-// 		const { Id } = req.params;
-// 		const article = await Article.findById({ _id: Id });
-// 		res.status(200).send({ msg: "Article found", article });
-// 	} catch (error) {
-// 		console.log(error);
-// 		res.status(500).send("article not found");
-// 	}
-// };
+		//add new personne
+		const newPersonne = new Personne({ ...req.body });
+		await newPersonne.save(); // save newpersonne data
+		res.status(200).send({ msg: "person added", personne: newPersonne });
+	} catch (error) {
+		console.log(error);
+		res.status(500).send("impossibl to add new person ");
+	}
+};

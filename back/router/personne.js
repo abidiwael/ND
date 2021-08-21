@@ -1,9 +1,13 @@
 const express = require("express");
-const { getAllPersonneData } = require("../controllers/personne.controllers");
+const {
+	getAllPersonneData,
+	addPersonne,
+} = require("../controllers/personne.controllers");
 
 const router = express.Router();
 
-router.get("/test", getAllPersonneData);
+router.get("/", getAllPersonneData);
+router.post("/add", addPersonne);
 
 // default export
 module.exports = router;
