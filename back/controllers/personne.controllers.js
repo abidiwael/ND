@@ -1,14 +1,6 @@
 const Personne = require("../models/Personne");
 
-exports.getAllPersonneData = async (req, res) => {
-	try {
-		const personnes = await Personne.find();
-		res.status(200).send({ msg: "all person data", personnes });
-	} catch (error) {
-		console.log(error);
-		res.status(500).send("imossible to get person data");
-	}
-};
+
 
 exports.addPersonne = async (req, res) => {
 	try {
@@ -88,5 +80,39 @@ exports.addPersonne = async (req, res) => {
 	} catch (error) {
 		console.log(error);
 		res.status(500).send("impossibl to add new person ");
+	}
+};
+exports.getAllPersonneData = async (req, res) => {
+	try {
+		const personnes = await Personne.find();
+		res.status(200).send({ msg: "all person data", personnes });
+	} catch (error) {
+		console.log(error);
+		res.status(500).send("imossible to get person data");
+	}
+};
+
+exports.editPersonData = async (req, res) => {
+	try {
+		const { Id } = req.params;
+		const newPerson = await Personne.findOneAndUpdate(
+			{ _id: Id },
+			{ $set: { ...req.body } }
+		);
+		res.status(200).send({ msg: "person edited", newPerson });
+	} catch (error) {
+		console.log(error);
+		res.status(500).send("impossible to edit personn data");
+	}
+};
+
+exports.deletePerson = async (req, res) => {
+	try {
+		const { Id } = req.params;
+		await Personne.findOneAndDelete({ _id: Id });
+		res.status(200).send({ msg: "Person deleted" });
+	} catch (error) {
+		console.log(error);
+		res.status(500).send("impossible to delete person");
 	}
 };
