@@ -6,7 +6,7 @@ const personneSchema = new Schema(
 		civilite: { type: String, required: true },
 		nom: { type: String, required: true },
 		prenom: { type: String, required: true },
-		date_naissance: {type: Date , required: true },
+		date_naissance: { type: String, required: true },
 		situation_familiale: { type: String, required: true },
 		nb_enfants: { type: Number, required: true },
 		email: { type: String, required: true },

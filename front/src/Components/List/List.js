@@ -1,9 +1,17 @@
 import React from "react";
 import "./List.css";
 import "./Profile.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Modal } from "react-bootstrap";
+import { getPersonneData } from "../../Redux/personneActions/personneActions";
+
 const List = () => {
+	const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(getPersonneData());
+	}, []);
+
 	const [proShow, setproShow] = useState(false);
 	const [editShow, seteditShow] = useState(false);
 	return (
