@@ -9,3 +9,13 @@ export const getPersonneData = () => async (dispatch) => {
 		console.log(error);
 	}
 };
+
+
+export const deletePersonne = (id) => async (dispatch) => {
+	try {
+		await axios.delete(`/api/personne/${id}`);
+		dispatch(getPersonneData());
+	} catch (error) {
+		console.log(error);
+	}
+};

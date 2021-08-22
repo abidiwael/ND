@@ -1,70 +1,44 @@
 import React from "react";
 import "./List.css";
 import "./Profile.css";
-import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useState } from "react";
 import { Modal } from "react-bootstrap";
-import { getPersonneData } from "../../Redux/personneActions/personneActions";
+import { useDispatch} from "react-redux";
+import { deletePersonne } from "../../Redux/personneActions/personneActions";
 
-const List = () => {
-	const dispatch = useDispatch();
-	useEffect(() => {
-		dispatch(getPersonneData());
-	}, []);
-
+const List = ({ personne }) => {
 	const [proShow, setproShow] = useState(false);
 	const [editShow, seteditShow] = useState(false);
+
+	const dispatch = useDispatch();
 	return (
-		<div className='bodyList'>
-			<div className='page-content container'>
-				<div className='container px-0'>
-					<div className='row mt-4'>
-						<div className='col-12 col-lg-10 offset-lg-1'>
-							<div className='mt-4'>
-								<div className='row text-600 text-white bgc-default-tp1 py-25'>
-									<div className='d-none d-sm-block col-2'>Full name</div>
-									<div className='col-9 col-sm-3'>Email</div>
-									<div className='d-none d-sm-block col-sm-2'>mobile</div>
-									<div className='d-none d-sm-block col-sm-2'>Country</div>
-									<div className='col-9 col-sm-3'></div>
-								</div>
-								<div className='text-95 text-secondary-d3'>
-									<div className='row mb-2 mb-sm-0 py-25'>
-										<div className='d-none d-sm-block col-2'>abidi wael</div>
-										<div className='col-9 col-sm-3'>abidi1919@gmail.com</div>
-										<div className='d-none d-sm-block col-sm-2'>25252525</div>
-										<div className='d-none d-sm-block col-sm-2'>tunisia</div>
-										<div className='col-9 col-sm-3 '>
-											<button
-												className='btn  fa fa-search-plus btn-actions text-muted'
-												type='submit'
-												onClick={() => setproShow(true)}
-											/>
-											<button
-												className='btn  fa fa-edit btn-actions text-muted'
-												type='submit'
-												onClick={() => seteditShow(true)}
-											/>
-											<button
-												className='btn  fa fa-trash btn-actions text-muted'
-												type='submit'
-											/>
-										</div>
-									</div>
-								</div>
-								<div className='row border-b-2 brc-default-l2' />
-								<hr />
-								<div>
-									<span className='text-secondary-d1 text-105 '>
-										All data is confidential &nbsp;
-									</span>
-									<i class='fa fa-exclamation-triangle text-muted'></i>
-								</div>
-							</div>
-						</div>
+		<div>
+			<div className='text-95 text-secondary-d3'>
+				<div className='row mb-2 mb-sm-0 py-25'>
+					<div className='d-none d-sm-block col-2'>{personne.nom}</div>
+					<div className='col-9 col-sm-3'>{personne.email}</div>
+					<div className='d-none d-sm-block col-sm-2'>{personne.mobile}</div>
+					<div className='d-none d-sm-block col-sm-2'>{personne.pays}</div>
+					<div className='col-9 col-sm-3 '>
+						<button
+							className='btn  fa fa-search-plus btn-actions text-muted'
+							type='submit'
+							onClick={() => setproShow(true)}
+						/>
+						<button
+							className='btn  fa fa-edit btn-actions text-muted'
+							type='submit'
+							onClick={() => seteditShow(true)}
+						/>
+						<button
+							className='btn  fa fa-trash btn-actions text-muted'
+							type='submit'
+							onClick={() => dispatch(deletePersonne(personne._id))}
+						/>
 					</div>
 				</div>
 			</div>
+
 			{/* ------------------------------------------------Start profile modal ------------------------------------------- */}
 			<Modal
 				size='lg'
@@ -91,7 +65,7 @@ const List = () => {
 														alt='Maxwell Admin'
 													/>
 												</div>
-												<h5 className='user-name'>Yuki Hayashi</h5>
+												<h5 className='user-name'>{personne.mobile}</h5>
 												<h6 className='user-email'>yuki@Maxwell.com</h6>
 											</div>
 											<div className='about'>

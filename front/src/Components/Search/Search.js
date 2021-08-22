@@ -1,7 +1,8 @@
 import React from "react";
 import "./Search.css";
 
-const Search = () => {
+
+const Search = ({ getSearchTitle}) => {
 	return (
 		<div className='bodySearch'>
 			<div className='container'>
@@ -14,6 +15,7 @@ const Search = () => {
 										className='form-control form-control-lg form-control-borderless'
 										type='search'
 										placeholder='Search Person Data'
+										onChange={(e) => getSearchTitle(e.target.value)}
 									/>
 								</div>
 								<div className='col-auto'>
