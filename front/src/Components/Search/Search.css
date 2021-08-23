@@ -35,3 +35,14 @@
 	float: right;
 	margin-left: 19px;
 }
+
+.classbtnadd {
+	background-color: #478fcc !important;
+	color: #fff;
+	border: none;
+	width: 90px;
+	height: 48px;
+	border-radius: 5px;
+	float: right;
+	margin-left: 19px;
+}
