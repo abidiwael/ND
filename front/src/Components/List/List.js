@@ -393,10 +393,13 @@ const List = ({ personne }) => {
 														<Form.Group
 															controlId='SelectCustom'
 															name='civilite'
-															onChange={(e) => setCivilite(e.target.value)}
-															value={civilite}
 														>
-															<Form.Control as='select' custom>
+															<Form.Control
+																as='select'
+																onChange={(e) => setCivilite(e.target.value)}
+																value={civilite}
+																custom
+															>
 																<option>Select ...</option>
 																<option>Mr.</option>
 																<option>Mme.</option>
@@ -453,19 +456,26 @@ const List = ({ personne }) => {
 													<label htmlFor='SituationFamiliale'>
 														Situation familiale
 													</label>
-													<Form.Select
-														className='form-control'
-														onChange={(e) =>
-															setSituation_familiale(e.target.value)
-														}
-														value={situation_familiale}
-													>
-														<option>Choisir ....</option>
-														<option value='1'>marié(e)</option>
-														<option value='2'>célibataire</option>
-														<option value='3'>divorcé(e)</option>
-														<option value='4'>veuf(ve)</option>
-													</Form.Select>
+													<Form>
+														<Form.Group
+															controlId='SelectCustom'
+															name='SituationFamiliale'
+														>
+															<Form.Control
+																as='select'
+																onChange={(e) =>
+																	setSituation_familiale(e.target.value)
+																}
+																value={situation_familiale}
+															>
+																<option>Select ...</option>
+																<option>Marié(e)</option>
+																<option>Célibataire</option>
+																<option>Divorcé(e)</option>
+																<option>Veuf(ve)</option>
+															</Form.Control>
+														</Form.Group>
+													</Form>
 												</div>
 											</div>
 											<div className='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
